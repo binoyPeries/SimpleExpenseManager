@@ -167,12 +167,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public boolean enterTransaction(Transaction transaction){
 
-        DateFormat format = new SimpleDateFormat("m-d-yyyy", Locale.ENGLISH);
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         System.out.println(transaction.getDate());
-        values.put(TRANS_COL_date,format.format(transaction.getDate()));
+        values.put(TRANS_COL_date,transaction.getDate().toString());
         values.put(TRANS_COL_accountNo,transaction.getAccountNo());
         values.put(TRANS_COL_expenseType,transaction.getExpenseType().toString());
         values.put(TRANS_COL_amount,transaction.getAmount());
@@ -190,7 +190,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("SELECT * FROM "+TABLE_TRANS,null);
 
         List<Transaction> transactions=new ArrayList<>();
-        DateFormat format = new SimpleDateFormat("m-d-yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         if (res.getCount() >= 0) {
 
             while (res.moveToNext()) {
@@ -219,7 +219,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("SELECT * FROM "+ TABLE_TRANS + " LIMIT " + limit,null);
 
         List<Transaction> transactions=new ArrayList<>();
-        DateFormat format = new SimpleDateFormat("m-d-yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         if (res.getCount() >= 0) {
 
             while (res.moveToNext()) {
