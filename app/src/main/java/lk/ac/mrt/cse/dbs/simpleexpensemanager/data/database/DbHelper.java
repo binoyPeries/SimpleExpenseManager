@@ -194,17 +194,19 @@ public class DbHelper extends SQLiteOpenHelper {
         if (res.getCount() >= 0) {
 
             while (res.moveToNext()) {
-                String accountNo = res.getString(1);
-                ExpenseType expenseType = ExpenseType.valueOf(res.getString(2));
-                Date date = new Date();
+
                 try {
-                    date = format.parse(res.getString(0));
+                    String accountNo = res.getString(1);
+                    ExpenseType expenseType = ExpenseType.valueOf(res.getString(2));
+                     Date date = format.parse(res.getString(0));
+
+                    double amount = res.getDouble(3);
+                    transactions.add(new Transaction(date, accountNo, expenseType, amount));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                double amount = res.getDouble(3);
-                transactions.add(new Transaction(date, accountNo, expenseType, amount));
+
             }
         }
         return transactions;
@@ -222,17 +224,19 @@ public class DbHelper extends SQLiteOpenHelper {
 
             while (res.moveToNext()) {
                 System.out.print(res);
-                String accountNo = res.getString(1);
-                ExpenseType expenseType = ExpenseType.valueOf(res.getString(2));
-                Date date = new Date();
+
                 try {
-                    date = format.parse(res.getString(0));
+                    String accountNo = res.getString(1);
+                    ExpenseType expenseType = ExpenseType.valueOf(res.getString(2));
+                    Date date = format.parse(res.getString(0));
+                    double amount = res.getDouble(3);
+                    transactions.add(new Transaction(date, accountNo, expenseType, amount));
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                double amount = res.getDouble(3);
-                transactions.add(new Transaction(date, accountNo, expenseType, amount));
+
             }
         }
         return transactions;
